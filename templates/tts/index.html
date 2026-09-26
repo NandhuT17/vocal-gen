@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocal-Gen — Free Text to Voice</title>
+    <meta name="description" content="Convert text into downloadable speech for free.">
+    <link rel="stylesheet" href="{% static 'tts/style.css' %}">
+</head>
+<body>
+    <main class="page-shell">
+        <header class="topbar">
+            <a class="brand" href="/">
+                <span class="brand-mark">◉</span>
+                <span>Vocal-Gen</span>
+            </a>
+            <span class="free-pill">100% Free</span>
+        </header>
+
+        <section class="hero">
+            <div class="eyebrow">TEXT → VOICE</div>
+            <h1>Give your words<br><span>a voice.</span></h1>
+            <p class="hero-copy">
+                Turn your text into natural-sounding speech and download the audio —
+                completely free.
+            </p>
+        </section>
+
+        <section class="card">
+            {% if error %}
+                <div class="alert">{{ error }}</div>
+            {% endif %}
+
+            <form method="post" action="{% url 'synthesize' %}">
+                {% csrf_token %}
+
+                <div class="field-head">
+                    <label for="text">Your text</label>
+                    <span>{{ max_length }} character limit</span>
+                </div>
+
+                <textarea
+                    id="text"
+                    name="text"
+                    maxlength="{{ max_length }}"
+                    placeholder="Type or paste anything you want to hear..."
+                    required
+                >{{ text|default:"" }}</textarea>
+
+                <div class="controls">
+                    <div class="control">
+                        <label for="voice">Voice</label>
+                        <select id="voice" name="voice">
+                            {% for code, label in voices %}
+                                <option value="{{ code }}" {% if selected_voice == code %}selected{% endif %}>
+                                    {{ label }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button class="generate" type="submit">
+                        <span>Generate voice</span>
+                        <span class="arrow">→</span>
+                    </button>
+                </div>
+            </form>
+
+            {% if audio_url %}
+                <div class="result">
+                    <div class="result-title">
+                        <div>
+                            <span class="status-dot"></span>
+                            <strong>Your voice is ready</strong>
+                        </div>
+                        <a class="download" href="{{ audio_url }}" download="vocaly-voice.mp3">
+                            Download MP3 ↓
+                        </a>
+                    </div>
+
+                    <audio controls preload="metadata" src="{{ audio_url }}">
+                        Your browser does not support audio playback.
+                    </audio>
+                </div>
+            {% endif %}
+        </section>
+
+        <section class="features">
+            <div>
+                <span class="feature-icon">⚡</span>
+                <h3>Fast</h3>
+                <p>Generate speech in seconds.</p>
+            </div>
+            <div>
+                <span class="feature-icon">↓</span>
+                <h3>Download free</h3>
+                <p>Save your generated audio.</p>
+            </div>
+            <div>
+                <span class="feature-icon">◎</span>
+                <h3>Simple</h3>
+                <p>No account or subscription required.</p>
+            </div>
+        </section>
+
+        <footer>
+            <span>Vocal-Gen</span>
+        </footer>
+    </main>
+</body>
+</html>
