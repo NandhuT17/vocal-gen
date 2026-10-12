@@ -198,24 +198,6 @@ Generated audio files are stored in:
 media/voice/
 ```
 
-## 🔒 Security Notes
-
-This project is intended to be a simple and educational text-to-speech application.
-
-Before deploying it publicly, consider adding:
-
-- Rate limiting
-- Request throttling
-- Strong production `SECRET_KEY`
-- Proper `ALLOWED_HOSTS`
-- HTTPS
-- Production WSGI/ASGI configuration
-- Automatic cleanup of generated audio files
-- File-size and request limits
-- Abuse protection
-- Proper production media storage
-
-Do not use the development server for production.
 
 ## 🌐 Internet Requirement
 
@@ -241,36 +223,12 @@ If you'd like to improve Vocal-Gen:
 
 1. Fork the repository.
 2. Create a new branch.
-
-```bash
-git checkout -b feature/your-feature
-```
-
 3. Make your changes.
 4. Commit your changes.
-
-```bash
-git add .
-git commit -m "Add your feature"
-```
-
 5. Push your branch.
-
-```bash
-git push origin feature/your-feature
-```
-
 6. Open a Pull Request.
 
-## 🐛 Issues
 
-If you find a bug or have a feature request, please open an issue in the GitHub repository with:
-
-- A clear description of the problem
-- Steps to reproduce it
-- Expected behavior
-- Actual behavior
-- Relevant error messages or screenshots
 
 ## 📄 License
 
